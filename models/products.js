@@ -105,6 +105,11 @@ function getBlog(product_id) {
   const value = [product_id];
   return db.query(queryText, value);
 }
+function getBlogjj(category_id) {
+  const queryText = "SELECT * FROM products WHERE category_id = $1 AND is_deleted = false";
+  const value = [category_id];
+  return db.query(queryText, value);
+}
 
 function newblog(product_name, category_id, price, user_id, product_img, product_dis) {
   const queryText = "INSERT INTO products (product_name, category_id, price, user_id, product_img, product_dis) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
@@ -141,5 +146,7 @@ module.exports = {
   getBlog,
   deleteblog,
   updateblog,
+  getBlogjj
+
 };
   

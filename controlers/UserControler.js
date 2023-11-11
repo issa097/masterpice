@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
       if (passwordMatch) {
         // Passwords match, create a token
         const token = jwt.sign(
-          { user_id: user.user_id, username: user.username, role: "user" }, // Payload
+          { user_id: user.user_id, username: user.username, role: user.role }, // Payload
           key
         );
         console.log(token);

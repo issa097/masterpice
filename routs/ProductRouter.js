@@ -8,6 +8,7 @@ router.post("/product", upload.single("file"), ProductsController.newblog);
 
 router.get("/products", ProductsController.getBlogs);
 router.get("/blog/:id", ProductsController.getblog);
+router.get("/blogjj/:category_id", ProductsController.getblogjj);
 
 router.put("/deleteblog/:id", decode, ProductsController.deleteblog);
 router.put("/updateblog/:id", ProductsController.updateblog);

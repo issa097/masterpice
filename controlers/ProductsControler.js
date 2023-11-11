@@ -1,6 +1,5 @@
 const blog = require("../models/products");
 
-
 const newblog = async (req, res) => {
   try {
     const { product_name, category_id, price, user_id, product_dis } = req.body;
@@ -46,6 +45,15 @@ const getblog = async (req, res) => {
     throw error;
   }
 };
+const getblogjj = async (req, res) => {
+  const category_id = req.params.category_id;
+  try {
+    const result = await blog.getBlogjj(category_id);
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    throw error;
+  }
+};
 // const getBlogid = async (req, res) => {
 //   const user_id = req.params.userid;
 //   try {
@@ -76,7 +84,7 @@ const updateblog = async (req, res) => {
     user_id,
     product_img,
     product_dis,
-    is_deleted
+    is_deleted,
   } = req.body;
   try {
     const result = await blog.updateblog(
@@ -101,5 +109,5 @@ module.exports = {
   getblog,
   deleteblog,
   updateblog,
-  //   getBlogid,
+  getblogjj,
 };
