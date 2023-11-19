@@ -1,8 +1,8 @@
-const blog = require("../models/comment");
+const comment = require("../models/comment");
 
 const getComments = async (req, res) => {
   try {
-    const result = await blog.getAllCOMMENT();
+    const result = await comment.getAllCOMMENT();
     console.log(result);
     return res.status(200).json(result.rows);
   } catch (error) {
@@ -13,7 +13,7 @@ const getComments = async (req, res) => {
 const getCommentid = async (req, res) => {
   const comment_id = req.params.comment_id;
   try {
-    const result = await blog.getCommentid(comment_id);
+    const result = await comment.getCommentid(comment_id);
     return res.status(200).json(result.rows);
   } catch (error) {
     throw error;
@@ -22,14 +22,14 @@ const getCommentid = async (req, res) => {
 
 const CreateComment = async (req, res) => {
   try {
-    const { user_id, product_id, content, created_at, is_deleted } = req.body;
+    const { user_id, product_id, content, created_at} = req.body;
     // const product_img = req?.file?.path ? req.file.path : "majdi";
-    const result = await blog.CreateComment(
+    const result = await comment.CreateComment(
       user_id,
       product_id,
       content,
       created_at,
-      is_deleted
+     
     );
     console.log(result);
     return res.status(200).json(result.rows);
@@ -41,7 +41,7 @@ const CreateComment = async (req, res) => {
 const SoftDelete = async (req, res) => {
   const comment_id = req.params.comment_id;
   try {
-    const result = await blog.SoftDelete(comment_id);
+    const result = await comment.SoftDelete(comment_id);
     console.log(result);
     return res.status(200).json(result.rows);
   } catch (error) {
@@ -54,7 +54,7 @@ const update = async (req, res) => {
   console.log(user_id, product_id, content, created_at, is_deleted, comment_id);
 
   try {
-    const result = await blog.update(
+    const result = await comment.update(
       comment_id,
       user_id,
       product_id,
@@ -72,7 +72,7 @@ const getCommentsByUserAndProduct = async (req, res) => {
   const { userId, productId } = req.params;
 
   try {
-    const comments = await blog.getCommentsByUserAndProduct(userId, productId);
+    const comments = await comment.getCommentsByUserAndProduct(userId, productId);
     res.json(comments.rows);
   } catch (error) {
     console.error("Error in commentController:", error);

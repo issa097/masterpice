@@ -11,10 +11,10 @@ function getcategoruid(category_id) {
   return db.query(queryText, value);
 }
 
-function newCategory(category_name,img) {
+function newCategory(category_name, img) {
   const queryText =
     "INSERT INTO categories (category_name , img) VALUES ($1,$2) RETURNING *";
-  const values = [category_name,img];
+  const values = [category_name, img];
   return db.query(queryText, values);
 }
 
@@ -36,11 +36,26 @@ async function deletecategory(category_id) {
   }
 }
 
-function updatecategory(category_id,category_name,is_deleted) {
-  const queryText =
-    "UPDATE categories SET category_name = $2 , is_deleted = $3 WHERE category_id = $1  RETURNING *";
-  const value = [category_id,category_name,is_deleted];
-  return db.query(queryText, value);
+// function updatecategory(category_id,category_name,is_deleted) {
+//   const queryText =
+//     "UPDATE categories SET category_name = $2 , is_deleted = $3 WHERE category_id = $1  RETURNING *";
+//   const value = [category_id,category_name,is_deleted];
+//   return db.query(queryText, value);
+// }
+
+function updatecategory(category_id, category_name, is_deleted) {
+  const queryText = `
+    UPDATE categories 
+    SET 
+      category_name = COALESCE($2, category_name),
+      is_deleted = COALESCE($3, is_deleted)
+    WHERE 
+      category_id = $1 
+    RETURNING *`;
+
+  const values = [category_id, category_name, is_deleted];
+
+  return db.query(queryText, values);
 }
 
 module.exports = {

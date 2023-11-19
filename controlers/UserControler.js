@@ -132,6 +132,19 @@ const google = async (req, res) => {
   // console.log(req.body)
 };
 
+const getUserProfile = async (req, res) => {
+  const user_id = req.params.user_id;
+
+  try {
+    const userBookings = await User.UserProfile(user_id); // افترض أن `db` هو كائن الاتصال بقاعدة البيانات
+
+    return res.status(200).json(userBookings.rows);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Internal Server Error");
+  }
+};
+
 module.exports = {
   newUser,
   getUsers,
@@ -141,4 +154,5 @@ module.exports = {
   loginUser,
   decode,
   google,
+  getUserProfile,
 };

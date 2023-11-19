@@ -40,12 +40,27 @@ function deleteUser(user_id) {
   return db.query(queryText, value);
 }
 
+// function updateUser(user_id, username, email, password) {
+//   const queryText =
+//     "UPDATE users  SET username = $2, email = $3, password = $4  WHERE user_id = $1   RETURNING * ";
+//   const value = [user_id, username, email, password];
+//   return db.query(queryText, value);
+// }
 function updateUser(user_id, username, email, password) {
-  const queryText =
-    "UPDATE users  SET username = $2, email = $3, password = $4  WHERE user_id = $1   RETURNING * ";
-  const value = [user_id, username, email, password];
-  return db.query(queryText, value);
+  const queryText = `
+    UPDATE users 
+    SET 
+      username = COALESCE($2, username), 
+      email = COALESCE($3, email), 
+      password = COALESCE($4, password)
+    WHERE 
+      user_id = $1 
+    RETURNING *`;
+
+  const values = [user_id, username, email, password];
+  return db.query(queryText, values);
 }
+
 function decodeToken(token, key) {
   let userData = {};
   jwt.verify(token, key, (err, decoded) => {
@@ -67,6 +82,17 @@ function loginUser(user_id, email, password) {
   return db.query(queryText, value);
 }
 
+async function UserProfile(user_id) {
+  const queryText =
+    "SELECT  workshops.workshop_name as workshop_name, workshops.workshop_dis as workshop_dis, workshops.workshop_title as workshop_title ,workshops.workshop_start as workshop_start,workshops.workshop_end as workshop_end " +
+    "FROM workshop_bookings " +
+    "JOIN workshops ON workshop_bookings.workshop_id = workshops.workshop_id " +
+    "WHERE (user_id = $1 )";
+  const values = [user_id];
+
+  return db.query(queryText, values);
+}
+
 module.exports = {
   getAllData,
   newUser,
@@ -76,4 +102,5 @@ module.exports = {
   getEmail,
   decodeToken,
   loginUser,
+  UserProfile,
 };

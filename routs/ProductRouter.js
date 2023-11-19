@@ -2,15 +2,17 @@ const express = require("express");
 
 const router = express.Router();
 const ProductsController = require("../controlers/ProductsControler");
-const { upload } = require("../middlewares/MulterMiddlewares");
+const uploadImg = require("../middlewares/MulterMiddlewares");
 const decode = require("../middlewares/auth");
-router.post("/product", upload.single("file"), ProductsController.newblog);
+
+router.post("/product", uploadImg.uploadImg, ProductsController.newblog);
 
 router.get("/products", ProductsController.getBlogs);
 router.get("/blog/:id", ProductsController.getblog);
-router.get("/blogjj/:category_id", ProductsController.getblogjj);
+router.get("/product/:category_id", ProductsController.product);
+// GET /blogs?page=2&pageSize=5
 
-router.put("/deleteblog/:id", decode, ProductsController.deleteblog);
-router.put("/updateblog/:id", ProductsController.updateblog);
+router.put("/deleteproduct/:id", ProductsController.deleteproduct);
+router.put("/updateproduct/:id", ProductsController.updateproduct);
 
 module.exports = router;

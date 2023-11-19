@@ -13,6 +13,8 @@ router.post("/decode", UserController.decode);
 router.get("/users", UserController.getUsers);
 router.get("/user/:id", UserController.getUser);
 
+router.get("/usernn/:user_id", UserController.getUserProfile);
+
 //delete/update
 router.put("/deleteuser/:id", UserController.deleteUser);
 router.put("/updateuser/:id", UserController.updateUser);

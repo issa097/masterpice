@@ -11,10 +11,10 @@ function getCommentid(comment_id) {
   return db.query(queryText, value);
 }
 
-function CreateComment(user_id, product_id, content, created_at, is_deleted) {
+function CreateComment(user_id, product_id, content, created_at) {
   const queryText =
-    "INSERT INTO comments(user_id,product_id ,content,created_at,is_deleted) VALUES($1,$2,$3,$4,$5)RETURNING*";
-  const values = [user_id, product_id, content, created_at, is_deleted];
+    "INSERT INTO comments(user_id,product_id ,content,created_at) VALUES($1,$2,$3,$4)RETURNING*";
+  const values = [user_id, product_id, content, created_at];
   return db.query(queryText, values);
 }
 
@@ -25,6 +25,28 @@ function SoftDelete(comment_id) {
   return db.query(queryText, valuse);
 }
 
+// function update(
+//   comment_id,
+//   user_id,
+//   product_id,
+//   content,
+//   created_at,
+//   is_deleted
+// ) {
+//   const queryText =
+//     "UPDATE comments SET user_id = $2, product_id = $3, content = $4, created_at = $5, is_deleted = $6 WHERE comment_id = $1  RETURNING *";
+
+//   const valuse = [
+//     comment_id,
+//     user_id,
+//     product_id,
+//     content,
+//     created_at,
+//     is_deleted,
+//   ];
+//   return db.query(queryText, valuse);
+// }
+
 function update(
   comment_id,
   user_id,
@@ -33,10 +55,19 @@ function update(
   created_at,
   is_deleted
 ) {
-  const queryText =
-    "UPDATE comments SET user_id = $2, product_id = $3, content = $4, created_at = $5, is_deleted = $6 WHERE comment_id = $1  RETURNING *";
+  const queryText = `
+    UPDATE comments 
+    SET 
+      user_id = COALESCE($2, user_id),
+      product_id = COALESCE($3, product_id),
+      content = COALESCE($4, content),
+      created_at = COALESCE($5, created_at),
+      is_deleted = COALESCE($6, is_deleted)
+    WHERE 
+      comment_id = $1 
+    RETURNING *`;
 
-  const valuse = [
+  const values = [
     comment_id,
     user_id,
     product_id,
@@ -44,8 +75,10 @@ function update(
     created_at,
     is_deleted,
   ];
-  return db.query(queryText, valuse);
+
+  return db.query(queryText, values);
 }
+
 
 function getCommentsByUserAndProduct(userId, productId) {
   const queryText =

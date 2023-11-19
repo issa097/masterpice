@@ -1,8 +1,8 @@
-const blog = require("../models/workshop");
+const workshop = require("../models/workshop");
 
 const getAllShop = async (req, res) => {
   try {
-    const result = await blog.getAllShop();
+    const result = await workshop.getAllShop();
     console.log(result);
     return res.status(200).json(result.rows);
   } catch (error) {
@@ -13,7 +13,7 @@ const getAllShop = async (req, res) => {
 const getShopid = async (req, res) => {
   const workshop_id = req.params.workshop_id;
   try {
-    const result = await blog.getShopid(workshop_id);
+    const result = await workshop.getShopid(workshop_id);
     return res.status(200).json(result.rows);
   } catch (error) {
     throw error;
@@ -38,7 +38,7 @@ const newShop = async (req, res) => {
     //   product_img,
     //   product_dis
     // );
-    const newblog = await blog.newShop(
+    const newblog = await workshop.newShop(
       workshop_name,
       workshop_dis,
       workshop_title,
@@ -55,7 +55,7 @@ const newShop = async (req, res) => {
 const deleteShop = async (req, res) => {
   const workshop_id = req.params.workshop_id;
   try {
-    const result = await blog.deleteShop(workshop_id);
+    const result = await workshop.deleteShop(workshop_id);
     return res.status(200).json(result.rows);
   } catch (error) {
     throw error;
@@ -72,7 +72,7 @@ const updateShop = async (req, res) => {
     workshop_end,
   } = req.body;
   try {
-    const result = await blog.updateShop(
+    const result = await workshop.updateShop(
       workshop_id,
 
       workshop_name,

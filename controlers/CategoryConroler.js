@@ -1,8 +1,8 @@
-const blog = require("../models/category");
+const category = require("../models/category");
 
 const getCategory = async (req, res) => {
   try {
-    const results = await blog.getAllCategory();
+    const results = await category.getAllCategory();
     console.log(results);
     return res.status(200).json(results.rows);
   } catch (error) {
@@ -13,7 +13,7 @@ const getCategory = async (req, res) => {
 const getcategoruid = async (req, res) => {
   const category_id = req.params.category_id;
   try {
-    const result = await blog.getcategoruid(category_id);
+    const result = await category.getcategoruid(category_id);
     return res.status(200).json(result.rows);
   } catch (error) {
     throw error;
@@ -32,7 +32,7 @@ const newCategory = async (req, res) => {
     //   product_img,
     //   product_dis
     // );
-    const newCategory = await blog.newCategory(category_name, img);
+    const newCategory = await category.newCategory(category_name, img);
 
     return res.status(200).json(newCategory.rows);
   } catch (error) {
@@ -43,7 +43,7 @@ const newCategory = async (req, res) => {
 const deletecategory = async (req, res) => {
   const category_id = req.params.category_id;
   try {
-    const result = await blog.deletecategory(category_id);
+    const result = await category.deletecategory(category_id);
     return res.status(200).json(result.rows);
   } catch (error) {
     throw error;
@@ -54,7 +54,7 @@ const updatecategory = async (req, res) => {
   const category_id = req.params.category_id;
   const { category_name, is_deleted } = req.body;
   try {
-    const result = await blog.updatecategory(
+    const result = await category.updatecategory(
       category_id,
       category_name,
       is_deleted

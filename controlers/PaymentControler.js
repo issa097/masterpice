@@ -111,3 +111,7 @@ module.exports = {
   getpaymentid,
   deletepayment,
 };
+
+
+// cros 
+// cors_id  , cors_name ,cors_dis , cors_trinner , cors_location , date , hour 

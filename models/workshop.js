@@ -48,6 +48,28 @@ async function deleteShop(workshop_id) {
   }
 }
 
+// function updateShop(
+//   workshop_id,
+//   workshop_name,
+//   workshop_dis,
+//   workshop_title,
+//   workshop_start,
+//   workshop_end,
+//   is_deleted
+// ) {
+//   const queryText =
+//     "UPDATE workshops SET workshop_name = $2, workshop_dis = $3, workshop_title = $4, workshop_start = $5, workshop_end = $6,is_deleted=$7 WHERE workshop_id  = $1  RETURNING *";
+//   const value = [
+//     workshop_id,
+//     workshop_name,
+//     workshop_dis,
+//     workshop_title,
+//     workshop_start,
+//     workshop_end,
+//     is_deleted,
+//   ];
+//   return db.query(queryText, value);
+// }
 function updateShop(
   workshop_id,
   workshop_name,
@@ -57,9 +79,20 @@ function updateShop(
   workshop_end,
   is_deleted
 ) {
-  const queryText =
-    "UPDATE workshops SET workshop_name = $2, workshop_dis = $3, workshop_title = $4, workshop_start = $5, workshop_end = $6,is_deleted=$7 WHERE workshop_id  = $1  RETURNING *";
-  const value = [
+  const queryText = `
+    UPDATE workshops 
+    SET 
+      workshop_name = COALESCE($2, workshop_name),
+      workshop_dis = COALESCE($3, workshop_dis),
+      workshop_title = COALESCE($4, workshop_title),
+      workshop_start = COALESCE($5, workshop_start),
+      workshop_end = COALESCE($6, workshop_end),
+      is_deleted = COALESCE($7, is_deleted)
+    WHERE 
+      workshop_id = $1 
+    RETURNING *`;
+
+  const values = [
     workshop_id,
     workshop_name,
     workshop_dis,
@@ -68,8 +101,10 @@ function updateShop(
     workshop_end,
     is_deleted,
   ];
-  return db.query(queryText, value);
+
+  return db.query(queryText, values);
 }
+
 
 module.exports = {
   getAllShop,
