@@ -18,11 +18,51 @@ function Newworkshop_bookings(user_id, workshop_id) {
   return db.query(queryText, values);
 }
 
+// function workshop(workshop_id) {
+//   const queryText =
+//     "SELECT * FROM workshop_bookings WHERE workshop_id = $1 AND is_deleted = false";
+//   const value = [workshop_id];
+//   return db.query(queryText, value);
+// }
+
 function workshop(workshop_id) {
-  const queryText =
-    "SELECT * FROM workshop_bookings WHERE workshop_id = $1 AND is_deleted = false";
-  const value = [workshop_id];
-  return db.query(queryText, value);
+  const queryText = `
+    SELECT workshop_name, workshop_dis, workshop_title, workshop_start, workshop_end
+    FROM workshops
+    WHERE workshop_id = $1
+  `;
+  const values = [workshop_id];
+  return db.query(queryText, values);
+}
+// function workshopuser(user_id) {
+//   const queryText = `
+//     SELECT workshop_name, workshop_dis, workshop_title, workshop_start, workshop_end
+//     FROM workshops
+//     WHERE user_id = $1
+//   `;
+//   const values = [user_id];
+//   return db.query(queryText, values);
+// }
+
+function workshopuser(user_id) {
+  const queryText = `
+    SELECT
+     
+      workshops.workshop_name,
+      workshops.workshop_dis,
+      workshops.workshop_title,
+      workshops.workshop_start,
+      workshops.workshop_end
+    FROM
+      workshops
+    INNER JOIN
+      workshop_bookings ON workshops.workshop_id = workshop_bookings.workshop_id
+    WHERE
+    workshop_bookings.user_id = $1
+      AND workshop_bookings.is_deleted = false
+  `;
+  const values = [user_id];
+  return db.query(queryText, values);
 }
 
 async function deleteworkshop_bookings(id) {
@@ -82,4 +122,5 @@ module.exports = {
   deleteworkshop_bookings,
   workshop,
   updateworkshop_bookings,
+  workshopuser
 };

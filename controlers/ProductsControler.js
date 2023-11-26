@@ -19,7 +19,9 @@ const newblog = async (req, res) => {
       price,
       user_id,
       url,
-      product_dis
+
+      product_dis,
+
     );
 
     return res.status(200).json(newblog.rows);

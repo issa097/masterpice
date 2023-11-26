@@ -42,9 +42,13 @@ const WorkShopRouter = require("./routs/WorkShopRouter");
 const ContactRouter = require("./routs/ContactRouter");
 const BlogRouter = require("./routs/BlogRouter");
 const workshop_bookings = require("./routs/workshop_bookingsRouter");
+const RatingRouter = require("./routs/RatingRouter");
+const CartRouter = require("./routs/CartRouter");
+const WishlisRouter = require("./routs/WishlisRouter");
+
 const cors = require("cors");
 const app = express();
-const path = require("path");   
+const path = require("path");
 const port = 9000;
 
 app.use(express.json());
@@ -58,11 +62,13 @@ app.use(WorkShopRouter);
 app.use(ContactRouter);
 app.use(BlogRouter);
 app.use(workshop_bookings);
+app.use(RatingRouter);
+app.use(CartRouter);
+app.use(WishlisRouter);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
-
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -11,10 +11,10 @@ function getCommentid(comment_id) {
   return db.query(queryText, value);
 }
 
-function CreateComment(user_id, product_id, content, created_at) {
+function CreateComment(user_id, product_id, content) {
   const queryText =
-    "INSERT INTO comments(user_id,product_id ,content,created_at) VALUES($1,$2,$3,$4)RETURNING*";
-  const values = [user_id, product_id, content, created_at];
+    "INSERT INTO comments(user_id,product_id ,content ) VALUES($1,$2,$3)RETURNING*";
+  const values = [user_id, product_id, content];
   return db.query(queryText, values);
 }
 
@@ -78,7 +78,6 @@ function update(
 
   return db.query(queryText, values);
 }
-
 
 function getCommentsByUserAndProduct(userId, productId) {
   const queryText =

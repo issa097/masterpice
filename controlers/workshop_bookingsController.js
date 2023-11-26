@@ -20,8 +20,11 @@ const getworkshop_bookingsId = async (req, res) => {
 };
 
 const Newworkshop_bookings = async (req, res) => {
+  const user_id = 33;
+  const workshop_id = req.params.workshop_id;
+
   try {
-    const { user_id, workshop_id, booking_date, booking_time } = req.body;
+    const { booking_date, booking_time } = req.body;
     //   const product_img = req?.file?.path ? req.file.path : "majdi";
     console.log(user_id, workshop_id, booking_date, booking_time);
     const newblog = await workshop_bookings.Newworkshop_bookings(
@@ -49,29 +52,41 @@ const deleteworkshop_bookings = async (req, res) => {
 };
 
 const updateworkshop_bookings = async (req, res) => {
-    const id = req.params.id;
-    const {
-         user_id, workshop_id, booking_date, booking_time, is_deleted
-    } = req.body;
-    try {
-      const result = await workshop_bookings.updateworkshop_bookings(
-        id, user_id, workshop_id, booking_date, booking_time, is_deleted
-      );
-      return res.status(200).json(result.rows);
-    } catch (error) {
-      throw error;
-    }
-  };
-  const workshop = async (req, res) => {
-    const workshop_id = req.params.workshop_id;
-    try {
-      const result = await workshop_bookings.workshop(workshop_id);
-      return res.status(200).json(result.rows);
-    } catch (error) {
-      throw error;
-    }
-  };
-  
+  const id = req.params.id;
+  const { user_id, workshop_id, booking_date, booking_time, is_deleted } =
+    req.body;
+  try {
+    const result = await workshop_bookings.updateworkshop_bookings(
+      id,
+      user_id,
+      workshop_id,
+      booking_date,
+      booking_time,
+      is_deleted
+    );
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    throw error;
+  }
+};
+const workshop = async (req, res) => {
+  const workshop_id = req.params.workshop_id;
+  try {
+    const result = await workshop_bookings.workshop(workshop_id);
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    throw error;
+  }
+};
+const workshopuser = async (req, res) => {
+  const user_id = req.params.user_id;
+  try {
+    const result = await workshop_bookings.workshopuser(user_id);
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   getworkshop_bookings,
@@ -79,4 +94,6 @@ module.exports = {
   Newworkshop_bookings,
   deleteworkshop_bookings,
   updateworkshop_bookings,
-  workshop}
+  workshop,
+  workshopuser,
+};

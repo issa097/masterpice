@@ -22,13 +22,13 @@ const getCommentid = async (req, res) => {
 
 const CreateComment = async (req, res) => {
   try {
-    const { user_id, product_id, content, created_at} = req.body;
+    const { user_id, product_id, content} = req.body;
     // const product_img = req?.file?.path ? req.file.path : "majdi";
     const result = await comment.CreateComment(
       user_id,
       product_id,
       content,
-      created_at,
+  
      
     );
     console.log(result);

@@ -13,12 +13,11 @@ const newpayment = async (req, res) => {
       state,
       address,
       email,
-      paymentMethodId,
+      paymentMethodId = "2",
       phone,
       amount,
-      
     } = req.body;
-    const product_id=2
+    const product_id = 2;
     console.log(typeof amount);
     // const payment_img = req?.file?.path ? req.file.path : "majdi";
     // console.log(payment_img);
@@ -42,7 +41,7 @@ const newpayment = async (req, res) => {
           state,
           address,
           email,
-          paymentMethodId,
+          (paymentMethodId = "2"),
           phone,
           amount,
           product_id
@@ -112,6 +111,5 @@ module.exports = {
   deletepayment,
 };
 
-
-// cros 
-// cors_id  , cors_name ,cors_dis , cors_trinner , cors_location , date , hour 
+// cros
+// cors_id  , cors_name ,cors_dis , cors_trinner , cors_location , date , hour
