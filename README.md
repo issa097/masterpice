@@ -1,6 +1,7 @@
 # masterpice
 
 
+  [Issa Haddad ](https://github.com/issa097)
 
 
 - [Trello](https://trello.com/b/Sut1QMku/masterpice)
@@ -17,5 +18,4 @@
 - Trello
 
 
-  [Issa Haddad ](https://github.com/issa097)
 
