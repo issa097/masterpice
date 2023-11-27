@@ -16,6 +16,10 @@
 - Express
 - Postgresql
 - Trello
+- Jwt
+- Stripe
+- Google sign-in
+- firebase
 
 
 
