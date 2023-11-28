@@ -13,7 +13,7 @@ const newpayment = async (req, res) => {
       state,
       address,
       email,
-      paymentMethodId = "2",
+      paymentMethodId = "38",
       phone,
       amount,
     } = req.body;
