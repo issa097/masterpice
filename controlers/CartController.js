@@ -1,12 +1,12 @@
-const { as } = require("pg-promise");
+
 const cart = require("../models/Cart");
 
 const additem = async (req, res) => {
   const user_id = req.user;
 
   try {
-    const { product_id, quantity } = req.body;
-    const newItem = await cart.additem(product_id, user_id, quantity);
+    const { product_id, quantity ,paymentnumber } = req.body;
+    const newItem = await cart.additem(product_id, user_id, quantity,paymentnumber);
     return res.status(200).json(newItem.rows);
   } catch (error) {
     console.log(error);

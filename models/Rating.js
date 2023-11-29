@@ -3,9 +3,10 @@ const db = require("../lib/db");
 async function createRating(user_id, product_id, rating, comment) {
   try {
     const hasPurchased = await db.query(
-      `SELECT * FROM payment WHERE user_id = $1 AND product_id = $2`,
+      `SELECT * FROM payment WHERE user_id = $1 AND $2 = ANY(product_id)`,
       [user_id, product_id]
     );
+
 
     if (hasPurchased.rows.length === 0) {
       return { error: "User has not purchased the product." };

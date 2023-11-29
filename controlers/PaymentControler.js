@@ -5,20 +5,27 @@ const stripe = require("stripe")(
 
 const newpayment = async (req, res) => {
   // console.log(req.body);
+  const user_id = req.user;
   try {
     const {
-      user_id,
       cardholder,
       country,
       state,
       address,
       email,
-      paymentMethodId = "38",
+      paymentMethodId,
       phone,
       amount,
+      cart,
+      // product_id,
     } = req.body;
-    const product_id = 2;
-    console.log(typeof amount);
+    console.log(cart);
+    const product_id = cart.map((item) => {
+      return item.product_id;
+    });
+    console.log(product_id);
+
+    // console.log(typeof amount);
     // const payment_img = req?.file?.path ? req.file.path : "majdi";
     // console.log(payment_img);
 
@@ -41,7 +48,7 @@ const newpayment = async (req, res) => {
           state,
           address,
           email,
-          (paymentMethodId = "2"),
+          paymentMethodId,
           phone,
           amount,
           product_id
@@ -49,6 +56,7 @@ const newpayment = async (req, res) => {
 
         return res.status(200).json(newpayment.rows);
       } catch (error) {
+        console.log(error);
         return res.status(500).json("internal server error");
       }
 

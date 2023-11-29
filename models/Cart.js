@@ -1,8 +1,8 @@
 const db = require("../lib/db");
 
-function additem(product_id, user_id, quantity) {
-  const queryText = `INSERT INTO cart (product_id, user_id, quantity) VALUES ($1, $2, $3) RETURNING *`;
-  const result = [product_id, user_id, quantity];
+function additem(product_id, user_id, quantity,paymentnumber) {
+  const queryText = `INSERT INTO cart (product_id, user_id, quantity ,paymentnumber) VALUES ($1, $2, $3,$4) RETURNING *`;
+  const result = [product_id, user_id, quantity,paymentnumber];
   return db.query(queryText, result);
 }
 

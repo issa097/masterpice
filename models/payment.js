@@ -16,6 +16,39 @@ function getpaymentid(payment_id) {
   return db.query(queryText, value);
 }
 
+// function newpayment(
+//   user_id,
+//   cardholder,
+//   country,
+//   state,
+//   address,
+//   email,
+//   method_id,
+//   phone,
+//   amount,
+//   product_id
+// ) {
+//   try {
+//     const queryText =
+//       "INSERT INTO payment (user_id ,cardholder ,country,state,address,email,method_id,phone,amount,product_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *";
+
+//     const values = [
+//       user_id,
+//       cardholder,
+//       country,
+//       state,
+//       address,
+//       email,
+//       method_id,
+//       phone,
+//       amount,
+//       product_id,
+//     ];
+//     return db.query(queryText, values);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 function newpayment(
   user_id,
   cardholder,
