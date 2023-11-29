@@ -8,8 +8,10 @@ const decode = require("../middlewares/auth");
 router.post("/product", uploadImg.uploadImg, ProductsController.newblog);
 
 router.get("/products", ProductsController.getBlogs);
-router.get("/blog/:id", ProductsController.getblog);
+router.get("/blog/:product_id", ProductsController.getblog);
 router.get("/product/:category_id", ProductsController.product);
+router.get("/product/:user_id", ProductsController.getBloguserid);
+
 // GET /blogs?page=2&pageSize=5
 
 router.put("/deleteproduct/:id", ProductsController.deleteproduct);

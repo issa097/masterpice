@@ -30,15 +30,15 @@ const newblog = async (req, res) => {
   }
 };
 
-// const getBlogs = async (req, res) => {
-//   try {
-//     const result = await products.getAllblogs();
-//     console.log(result);
-//     return res.status(200).json(result.rows);
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+const getBlogsWithoutPagination = async (req, res) => {
+  try {
+    const result = await products.getBlogsWithoutPagination();
+    console.log(result);
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    throw error;
+  }
+};
 
 // const getBlogs = async (req, res) => {
 //   try {
@@ -79,7 +79,6 @@ const getBlogs = async (req, res) => {
   }
 };
 
-// router.get("/products", ProductsController.getBlogs);
 
 const getblog = async (req, res) => {
   const product_id = req.params.id;
@@ -99,16 +98,16 @@ const product = async (req, res) => {
     throw error;
   }
 };
-// const getBlogid = async (req, res) => {
-//   const user_id = req.params.userid;
-//   try {
-//     const result = await blog.getBlogid(user_id);
-//     console.log(result);
-//     return res.status(200).json(result.rows);
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+const getBloguserid = async (req, res) => {
+  const user_id = req.user;
+  try {
+    const result = await blog.getBlogid(user_id);
+    console.log(result);
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    throw error;
+  }
+};
 
 const deleteproduct = async (req, res) => {
   const product_id = req.params.id;
@@ -156,4 +155,6 @@ module.exports = {
   deleteproduct,
   updateproduct,
   product,
+  getBlogsWithoutPagination,
+  getBloguserid
 };
