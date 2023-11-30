@@ -10,6 +10,9 @@
 
 - [Presentation](https://docs.google.com/presentation/d/1DF1_z-mqaYZa79FFQV783J6w-jCfufDt/edit#slide=id.p1)
 
+- [organization]( https://github.com/Richesses-de-la-Riviera/Richesses-de-la-Riviera) 
+
+
 
 # Technologies used
 
